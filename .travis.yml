@@ -1,0 +1,25 @@
+language: python
+python: '3.5'
+branches:
+  only:
+  - master
+  - develop
+install:
+- pip install coverage codacy-coverage
+script:
+- coverage run -m py.test tests
+- coverage xml
+- python-codacy-coverage -r coverage.xml
+deploy:
+  provider: pypi
+  user: lexycore
+  password:
+  distributions: sdist bdist_wheel
+  skip_cleanup: true
+  on:
+    all_branches: true
+after_script:
+- echo "yes we run after_script"
+- echo "" > $GH_TOKEN_FILE
+env:
+  global:

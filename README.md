@@ -2,7 +2,7 @@ Django-Rediser
 ==============
 
 [![build](https://travis-ci.org/lexycore/django-rediser.svg?branch=master)](https://travis-ci.org/lexycore/django-rediser)
-[![codacy](https://api.codacy.com/project/badge/Grade/7a9ed2e6bb3e445f9e4a776e9b7f7886)](https://www.codacy.com/app/lexycore/django-rediser/dashboard)
+[![codacy](https://api.codacy.com/project/badge/Grade/a39bba3f74ea4e1bae63e010d2ba812a)](https://www.codacy.com/app/lexycore/django-rediser/dashboard)
 [![pypi](https://img.shields.io/pypi/v/django-rediser.svg)](https://pypi.python.org/pypi/django-rediser)
 [![license](https://img.shields.io/pypi/l/django-rediser.svg)](https://github.com/lexycore/django-rediser/blob/master/LICENSE)
 
