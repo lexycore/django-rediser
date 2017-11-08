@@ -71,7 +71,6 @@ setup(
     ],
     install_requires=[
         'redis',
-        'django'
         # 'docopt',
     ],
     package_data={

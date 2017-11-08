@@ -4,8 +4,10 @@ branches:
   only:
   - master
   - develop
+services:
+- redis-server
 install:
-- pip install coverage codacy-coverage
+- pip install redis coverage codacy-coverage
 script:
 - coverage run -m py.test tests
 - coverage xml

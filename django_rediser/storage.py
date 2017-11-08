@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import redis
 import json
-from django.conf import settings
+try:
+    from django.conf import settings
+except ModuleNotFoundError:
+    settings = object()
 
 
 class RedisStorage:
