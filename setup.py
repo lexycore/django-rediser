@@ -35,25 +35,6 @@ try:
     long_description = pypandoc.convert('README.md', 'rst')
     if branch:
         long_description = long_description.replace('django-rediser.svg?branch=master', 'django-rediser.svg?branch={}'.format(branch))
-    index_begin = long_description.find('\n*Index:*')
-    index_end = long_description.find('\n<a name="Chapter_1">')
-    examples = long_description.find('\n<a name="Chapter_4">')
-    links = min((long_description.find('\n.. |build'),
-                 long_description.find('\n.. |codacy'),
-                 long_description.find('\n.. |pypi'),
-                 long_description.find('\n.. |license'),
-                 ))
-    if all((index_begin >= 0,
-            index_end >= 0,
-            examples >= 0,
-            links >= 0,
-            )):
-        long_description = '{}{}More information here: {}\n{}'.format(
-            long_description[:index_begin],
-            long_description[index_end:examples + 1],
-            url,
-            long_description[links:].replace('\n', '').replace('.. |', '\n.. |'),
-        )  # .replace('\r\n', '\n')
 
 except (IOError, ImportError, OSError):
     print("Pandoc not found. Long_description conversion failure.")
