@@ -3,7 +3,7 @@ import redis
 import json
 try:
     from django.conf import settings
-except ModuleNotFoundError:
+except ImportError:
     settings = object()
 
 
