@@ -60,11 +60,10 @@ setup(
         'cache',
     ],
     packages=[
-        'django-rediser',
+        'django_rediser',
     ],
     setup_requires=[
         'wheel',
-        'pypandoc',
     ],
     tests_require=[
         'pytest',
