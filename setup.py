@@ -78,7 +78,7 @@ setup(
     author='Alexander Kovalev',
     author_email='ak@alkov.pro',
     url=url,
-    # long_description=long_description,
+    long_description=long_description,
     download_url='https://github.com/lexycore/django-rediser.git',
     # entry_points={'console_scripts': ['djedis=django_redis.__main__:main']},
     classifiers=[
