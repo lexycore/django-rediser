@@ -5,6 +5,7 @@ from django_rediser import RedisStorage
 
 
 class TestParser:
-    def test__init(self):
+    def test__connect(self):
         rs = RedisStorage()
-        assert rs.connect()
+        rs.connect()
+        assert rs._db is not None
