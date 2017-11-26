@@ -28,6 +28,28 @@ if travis:
     with open('django_rediser/config.py', 'w', encoding="utf-8") as f:
         f.write("__version__ = '{}'".format(version))
 
+try:
+    import pypandoc
+
+    print("Converting README...")
+    long_description = pypandoc.convert('README.md', 'rst')
+    if branch:
+        long_description = long_description.replace('django-rediser.svg?branch=master', 'django-rediser.svg?branch={}'.format(branch))
+
+except (IOError, ImportError, OSError):
+    print("Pandoc not found. Long_description conversion failure.")
+    with open('README.md', encoding="utf-8") as f:
+        long_description = f.read()
+else:
+    print("Saving README.rst...")
+    try:
+        if len(long_description) > 0:
+            with open('README.rst', 'w', encoding="utf-8") as f:
+                f.write(long_description)
+            if travis:
+                os.remove('README.md')
+    except:
+        print("  failed!")
 
 setup(
     name='django-rediser',
@@ -37,7 +59,7 @@ setup(
     author='Alexander Kovalev',
     author_email='ak@alkov.pro',
     url=url,
-    # long_description=long_description,
+    long_description=long_description,
     download_url='https://github.com/lexycore/django-rediser.git',
     # entry_points={'console_scripts': ['djedis=django_redis.__main__:main']},
     classifiers=[
@@ -64,6 +86,7 @@ setup(
     ],
     setup_requires=[
         'wheel',
+        'pypandoc',
     ],
     tests_require=[
         'pytest',

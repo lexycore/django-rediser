@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 import redis
 import json
-try:
-    from django.conf import settings
-except ImportError:
-    settings = object()
+from .settings import rediser_settings
 
 
 class RedisStorage:
     _db = None
     _tries = 3
 
-    def __init__(self):
-        self._host = getattr(settings, 'REDIS_HOST', 'localhost')
-        self._port = getattr(settings, 'REDIS_PORT', 6379)
-        self._db_num = getattr(settings, 'REDIS_DB', 0)
+    def __init__(self, host=None, port=None, db=None):
+        self._host = host or rediser_settings['REDIS_HOST']
+        self._port = port or rediser_settings['REDIS_PORT']
+        self._db_num = db or rediser_settings['REDIS_DB']
 
     def connect(self):
         self._db = redis.StrictRedis(host=self._host, port=self._port, db=self._db_num)

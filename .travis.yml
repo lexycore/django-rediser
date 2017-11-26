@@ -1,5 +1,8 @@
 language: python
 python: '3.5'
+addons:
+  apt_packages:
+  - pandoc
 branches:
   only:
   - master
@@ -7,7 +10,7 @@ branches:
 services:
 - redis-server
 install:
-- pip install redis coverage codacy-coverage
+- pip install redis pypandoc coverage codacy-coverage
 script:
 - coverage run -m py.test tests
 - coverage xml
