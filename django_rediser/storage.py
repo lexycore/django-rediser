@@ -14,7 +14,8 @@ class RedisStorage:
         self._db_num = db or rediser_settings['REDIS_DB']
 
     def connect(self):
-        self._db = redis.StrictRedis(host=self._host, port=self._port, db=self._db_num)
+        self._db = redis.StrictRedis(host=self._host, port=self._port,
+                                     db=self._db_num)
 
     def execute(self, func_name, *args, **kwargs):
         if not self._db:
@@ -55,7 +56,10 @@ class RedisStorage:
         return self.execute('smembers', name)
 
     def sismember(self, name, value):
-        """Return a boolean indicating if ``value`` is a member of set ``name``"""
+        """
+        Return a boolean indicating if ``value``
+        is a member of set ``name``
+        """
         return self.execute('sismember', name, value)
 
     def rpush(self, name, value):
@@ -114,7 +118,8 @@ class RedisJSON(RedisStorage):
         return value
 
     def set(self, name, value, ex=None, px=None, nx=False, xx=False):
-        return self.execute('set', name, self.dump(value), ex=ex, px=px, nx=nx, xx=xx)
+        return self.execute('set', name, self.dump(value),
+                            ex=ex, px=px, nx=nx, xx=xx)
 
     def get(self, name, source=''):
         result = self.execute('get', name)
@@ -126,15 +131,21 @@ class RedisJSON(RedisStorage):
         return self.execute('sadd', name, *self.dump(values, False))
 
     def srem(self, name, *values):
-        # send raw (source) values here. Right functioning with other values not guaranteed (and even worse).
+        """
+        send raw (source) values here. Right functioning with other values
+        not guaranteed (and even worse).
+        """
         return self.execute('srem', name, *self.dump(values, False))
 
     def smembers(self, name, source=''):
         return self.load(self.execute('smembers', name), source)
 
     def sismember(self, name, value):
-        """Return a boolean indicating if ``value`` is a member of set ``name``"""
-        # send raw (source) values here. Right functioning with other values not guaranteed (and even worse).
+        """
+        Return a boolean indicating if ``value`` is a member of set ``name``
+        send raw (source) values here. Right functioning with other values
+        not guaranteed (and even worse).
+        """
         return self.execute('sismember', name, self.dump(value))
 
     def rpush(self, name, value):

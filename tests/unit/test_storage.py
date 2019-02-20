@@ -6,4 +6,4 @@ class TestStorage:
     def test_connect(self):
         rs = RedisStorage()
         rs.connect()
-        assert rs._db is not None
+        assert getattr(rs, '_db', None) is not None

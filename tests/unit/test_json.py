@@ -6,12 +6,13 @@ class TestJSON:
     def test_connect(self):
         rs = RedisJSON()
         rs.connect()
-        assert rs._db is not None
+        assert getattr(rs, '_db', None) is not None
 
     def test_set_get(self):
         rs = RedisJSON()
-        rs.set('test_set_get', {'number': 123, 'string': 'abc', 'boolean': True})
+        rs.set('test_set_get',
+               {'number': 123, 'string': 'abc', 'boolean': True})
         data = rs.get('test_set_get')
         assert data['number'] == 123
         assert data['string'] == 'abc'
-        assert data['boolean'] == True
+        assert data['boolean'] is True

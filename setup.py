@@ -18,7 +18,8 @@ if travis:
         develop_status = '5 - Production/Stable'
         version.append(build_number)
     else:
-        version.append('{}{}'.format('dev' if branch == 'develop' else branch, build_number))
+        version.append('{}{}'.format('dev' if branch == 'develop'
+                                     else branch, build_number))
 else:
     if len(version) < 4:
         version.append('local')
@@ -35,7 +36,9 @@ if os.path.isfile('README.md'):
         print("Converting README...")
         long_description = pypandoc.convert('README.md', 'rst')
         if branch:
-            long_description = long_description.replace('django-rediser.svg?branch=master', 'django-rediser.svg?branch={}'.format(branch))
+            long_description = long_description.replace(
+                'django-rediser.svg?branch=master',
+                'django-rediser.svg?branch={}'.format(branch))
 
     except (IOError, ImportError, OSError):
         print("Pandoc not found. Long_description conversion failure.")

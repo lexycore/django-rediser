@@ -22,7 +22,8 @@ class RediserSettings(dict):
         super().__init__()
         _django_rediser_settings = getattr(settings, 'DJANGO_REDISER', {})
         self.update({
-            'REDIS_HOST': _django_rediser_settings.get('REDIS_HOST', 'localhost'),
+            'REDIS_HOST': _django_rediser_settings.get('REDIS_HOST',
+                                                       'localhost'),
             'REDIS_PORT': _django_rediser_settings.get('REDIS_PORT', 6379),
             'REDIS_DB': _django_rediser_settings.get('REDIS_DB', 0),
         })
