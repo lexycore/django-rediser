@@ -39,7 +39,9 @@ if os.path.isfile('README.md'):
         if branch:
             long_description = long_description.replace(
                 'django-rediser.svg?branch=master',
-                'django-rediser.svg?branch={}'.format(branch))
+                'django-rediser.svg?branch={}'.format(branch)).replace(
+                '```(bash)', '```'
+            )
 
     except (IOError, ImportError, OSError):
         print("Pandoc not found. Long_description conversion failure.")
