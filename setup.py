@@ -40,7 +40,7 @@ if os.path.isfile('README.md'):
             long_description = long_description.replace(
                 'django-rediser.svg?branch=master',
                 'django-rediser.svg?branch={}'.format(branch)).replace(
-                '``(bash)', '\n``'
+                '``(bash)   ', '\n``'
             )
 
     except (IOError, ImportError, OSError):
