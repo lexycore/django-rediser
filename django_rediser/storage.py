@@ -79,6 +79,9 @@ class RedisJSON:
     def __init__(self, host=None, port=None, db=None):
         self.storage = RedisStorage(host=host, port=port, db=db)
 
+    def connect(self):
+        self.storage.connect()
+
     @staticmethod
     def dump(values, single=True):
         def do_dump(_value):
