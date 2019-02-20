@@ -127,6 +127,9 @@ class RedisJSON:
         return self.storage.set(name, self.dump(value),
                                 ex=ex, px=px, nx=nx, xx=xx)
 
+    def delete(self, names):
+        return self.storage.delete(names)
+
     def get(self, name, source=''):
         result = self.storage.get(name)
         if isinstance(result, bytes):
@@ -162,3 +165,6 @@ class RedisJSON:
 
     def lrange(self, name, start, end, source=''):
         return self.load(self.storage.lrange(name, start, end), source)
+
+    def llen(self, name):
+        return self.storage.llen(name)
