@@ -11,6 +11,7 @@ travis = any((build_number, branch,))
 version = config.__version__.split('.')
 develop_status = '4 - Beta'
 url = 'http://lexycore.github.io/django-rediser'
+long_description = ''
 
 if travis:
     version = version[0:3]
