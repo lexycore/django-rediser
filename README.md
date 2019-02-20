@@ -7,11 +7,15 @@ Django-Rediser
 [![license](https://img.shields.io/pypi/l/django-rediser.svg)](https://github.com/lexycore/django-rediser/blob/master/LICENSE)
 
 *Index:*
-- [Introduction](#Chapter_1)
-- [Installation](#Chapter_2)
-- [Usage](#Chapter_3)
-- [Examples](#Chapter_4)
-        
+
+  - [Introduction](#Chapter_1)
+  
+  - [Installation](#Chapter_2)
+  
+  - [Usage](#Chapter_3)
+  
+  - [Examples](#Chapter_4)
+     
 <a name="Chapter_1"></a>Introduction
 ------------
 
@@ -20,22 +24,20 @@ It lets you use Redis DB without worrying about connections and json encoding/de
 
 There's 2 classes right now:
 
-- RedisStorage: main wrapper class, that ensures you have a connection to Redis server when you send commands to it.
-- RedisJSON: RedisStorage descendant, implementing json encoding/decoding.
-
+  - RedisStorage: main wrapper class, that ensures you have a connection to Redis server when you send commands to it.
+  
+  - RedisJSON: RedisStorage descendant, implementing json encoding/decoding.
 
 <a name="Chapter_2"></a>Installation
 ------------
 To install Django-Rediser, simply:
-```
+```(bash)
   pip install django-rediser
 ```
-
 
 <a name="Chapter_3"></a>Usage
 -----
 We'll add usage information soon.
-
 
 <a name="Chapter_4"></a>Examples
 --------
