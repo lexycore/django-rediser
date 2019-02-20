@@ -1,10 +1,5 @@
 import threading
 
-try:
-    from django.conf import settings
-except ImportError:
-    settings = object()
-
 
 class RediserSettings(dict):
     __singleton_lock = threading.Lock()
@@ -19,6 +14,10 @@ class RediserSettings(dict):
         return cls.__singleton_instance
 
     def __init__(self):
+        try:
+            from django.conf import settings
+        except ImportError:
+            settings = object()
         super().__init__()
         _django_rediser_settings = getattr(settings, 'DJANGO_REDISER', {})
         self.update({
@@ -27,6 +26,3 @@ class RediserSettings(dict):
             'REDIS_PORT': _django_rediser_settings.get('REDIS_PORT', 6379),
             'REDIS_DB': _django_rediser_settings.get('REDIS_DB', 0),
         })
-
-
-rediser_settings = RediserSettings()

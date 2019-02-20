@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 import redis
 import json
-from .settings import rediser_settings
 
 
 class RedisStorage:
-    _db = None
-    _tries = 3
-
     def __init__(self, host=None, port=None, db=None):
+        from .settings import RediserSettings
+        rediser_settings = RediserSettings()
         self._host = host or rediser_settings['REDIS_HOST']
         self._port = port or rediser_settings['REDIS_PORT']
         self._db_num = db or rediser_settings['REDIS_DB']
+        self._db = None
+        self._tries = 3
 
     def connect(self):
         self._db = redis.StrictRedis(host=self._host, port=self._port,
@@ -75,7 +75,10 @@ class RedisStorage:
         return self.execute('llen', name)
 
 
-class RedisJSON(RedisStorage):
+class RedisJSON:
+    def __init__(self, host=None, port=None, db=None):
+        self.storage = RedisStorage(host=host, port=port, db=db)
+
     @staticmethod
     def dump(values, single=True):
         def do_dump(_value):
@@ -118,27 +121,27 @@ class RedisJSON(RedisStorage):
         return value
 
     def set(self, name, value, ex=None, px=None, nx=False, xx=False):
-        return self.execute('set', name, self.dump(value),
-                            ex=ex, px=px, nx=nx, xx=xx)
+        return self.storage.set(name, self.dump(value),
+                                ex=ex, px=px, nx=nx, xx=xx)
 
     def get(self, name, source=''):
-        result = self.execute('get', name)
+        result = self.storage.get(name)
         if isinstance(result, bytes):
             result = result.decode('utf-8')
         return self.load(result, source)
 
     def sadd(self, name, *values):
-        return self.execute('sadd', name, *self.dump(values, False))
+        return self.storage.sadd(name, *self.dump(values, False))
 
     def srem(self, name, *values):
         """
         send raw (source) values here. Right functioning with other values
         not guaranteed (and even worse).
         """
-        return self.execute('srem', name, *self.dump(values, False))
+        return self.storage.srem(name, *self.dump(values, False))
 
     def smembers(self, name, source=''):
-        return self.load(self.execute('smembers', name), source)
+        return self.load(self.storage.smembers(name), source)
 
     def sismember(self, name, value):
         """
@@ -146,13 +149,13 @@ class RedisJSON(RedisStorage):
         send raw (source) values here. Right functioning with other values
         not guaranteed (and even worse).
         """
-        return self.execute('sismember', name, self.dump(value))
+        return self.storage.sismember(name, self.dump(value))
 
     def rpush(self, name, value):
-        return self.execute('rpush', name, self.dump(value))
+        return self.storage.rpush(name, self.dump(value))
 
     def lpop(self, name, source=''):
-        return self.load(self.execute('lpop', name), source)
+        return self.load(self.storage.lpop(name), source)
 
     def lrange(self, name, start, end, source=''):
-        return self.load(self.execute('lrange', name, start, end), source)
+        return self.load(self.storage.lrange(name, start, end), source)

@@ -53,7 +53,7 @@ if os.path.isfile('README.md'):
                     f.write(long_description)
                 if travis:
                     os.remove('README.md')
-        except:
+        except Exception:
             print("  failed!")
 
 setup(
