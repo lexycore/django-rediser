@@ -10,4 +10,7 @@ else:
     else:
         version = '{} build {}'.format('.'.join(version[:3]), version[3])
 
-from .storage import RedisStorage, RedisJSON
+try:
+    from .storage import RedisStorage, RedisJSON
+except ImportError:
+    print('`redis` package not found')
