@@ -6,7 +6,7 @@ class TestJSON:
     def test_connect(self):
         rs = RedisJSON()
         rs.connect()
-        assert getattr(rs, '_db', None) is not None
+        assert getattr(rs.storage, '_db', None) is not None
 
     def test_set_get(self):
         rs = RedisJSON()
